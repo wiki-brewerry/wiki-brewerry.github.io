@@ -512,6 +512,28 @@ td .mci.st{width:14px;height:14px;vertical-align:-2px;margin-left:2px}
 .ft-links .mc-btn{gap:9px}
 .pi{flex:none;image-rendering:pixelated;filter:drop-shadow(2px 2px 0 #000)}
 .ft-links .mc-btn{padding:8px 14px 8px 12px;font-size:11px}
+
+/* ===== Таблица материалов бочек ===== */
+.bt-wrap{margin:16px 0 8px;border:3px solid var(--border);background:#101014;box-shadow:inset 0 0 0 2px #000}
+.bt-wrap .tw{margin:0;border:none}
+.bt{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;background:transparent}
+.bt thead th{background:linear-gradient(#2a2a32,#1e1e24);color:var(--amber);padding:12px 14px;border-bottom:3px solid #000;position:sticky;top:0}
+.bt thead th:first-child{border-right:2px solid #000}
+.bt thead th .th-ico{display:inline-block;width:10px;height:10px;margin-right:8px;background:var(--amber);box-shadow:inset -2px -2px 0 #b8860b,inset 2px 2px 0 #fff6;vertical-align:-1px}
+.bt tbody tr{background:rgba(30,30,36,.95);transition:background .12s,transform .12s}
+.bt tbody tr:nth-child(even){background:rgba(36,36,44,.95)}
+.bt tbody tr:hover{background:#2a3324}
+.bt td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:middle;color:#d5d5db}
+.bt tbody tr:last-child td{border-bottom:none}
+.bt td.bn{white-space:nowrap;font-weight:700;color:#fff;border-right:2px solid #000;border-left:4px solid var(--wc,var(--green-dark))}
+.bt td.bn .sw{display:inline-block;width:18px;height:18px;margin-right:10px;vertical-align:-4px;background:var(--wc);border:2px solid #000;box-shadow:inset 3px 3px 0 #ffffff40,inset -3px -3px 0 #00000045;image-rendering:pixelated}
+.bt .tag{display:inline-block;margin-left:8px;padding:2px 6px;font-family:var(--font-pixel);font-size:8px;letter-spacing:1px;text-transform:uppercase;border:1px solid;vertical-align:1px}
+.bt .tag.nether{color:#ff8a7a;border-color:#7a2a22;background:#2a1412}
+.bt .tag.spec{color:#ffb27a;border-color:#7a4422;background:#2a1c12}
+.bt tbody tr:hover td.bn{color:var(--green)}
+.bt td.alt{color:var(--amber)}
+.bt-note{font-size:12px;color:var(--muted);margin:8px 2px 0;font-style:italic}
+@media(max-width:640px){.bt td,.bt thead th{padding:9px 10px}.bt .tag{display:none}}
 </style>
 </head>
 <body>
@@ -638,7 +660,7 @@ td .mci.st{width:14px;height:14px;vertical-align:-2px;margin-left:2px}
 
       <div class="vid-grid">
         <figure>
-          <video controls preload="metadata"><source src="Видео/building-a-distillery (1)-compressed.mp4" type="video/mp4"></video>
+          <video controls preload="metadata"><source src="Видео/Варка и смешивание.mp4" type="video/mp4"></video>
           <figcaption>Работа с котлом: наполнение и варка</figcaption>
         </figure>
       </div>
@@ -665,11 +687,11 @@ td .mci.st{width:14px;height:14px;vertical-align:-2px;margin-left:2px}
 
       <div class="vid-grid">
         <figure>
-          <video controls preload="metadata"><source src="Видео/using-a-distillery (1)-compressed.webm" type="video/webm"></video>
+          <video controls preload="metadata"><source src="Видео/Дистиллирование используем.webm" type="video/webm"></video>
           <figcaption>Использование дистиллятора</figcaption>
         </figure>
         <figure>
-          <video controls preload="metadata"><source src="Видео/building-a-distillery (1)-compressed.mp4" type="video/mp4"></video>
+          <video controls preload="metadata"><source src="Видео/Дистиллирование-строим.mp4" type="video/mp4"></video>
           <figcaption>Постройка дистиллятора</figcaption>
         </figure>
       </div>
@@ -711,6 +733,28 @@ td .mci.st{width:14px;height:14px;vertical-align:-2px;margin-left:2px}
         <figure><img class="shot" src="Фото/image (3).png" alt="Бочки из разных пород дерева"><figcaption>Бочки из разных пород дерева</figcaption></figure>
         <figure><img class="shot" src="Фото/image (4).png" alt="Бочки Незера и специальные"><figcaption>Бочки Незера и специальные бочки</figcaption></figure>
       </div>
+
+      <h2>Из чего строить бочку</h2>
+      <p>Выберите тип бочки и используйте соответствующие материалы: ступени, доски и заборы должны быть из одной породы дерева.</p>
+      <div class="bt-wrap"><div class="tw">
+        <table class="bt">
+          <thead><tr><th><span class="th-ico"></span>Тип бочки</th><th>Ступени</th><th>Доски</th><th>Заборы</th></tr></thead>
+          <tbody>
+            <tr style="--wc:#b8945f"><td class="bn"><span class="sw"></span>Дубовая</td><td>Дубовые</td><td>Дубовые</td><td>Дубовый</td></tr>
+            <tr style="--wc:#6b4a2b"><td class="bn"><span class="sw"></span>Еловая</td><td>Еловые</td><td>Еловые</td><td>Еловый</td></tr>
+            <tr style="--wc:#d6c78d"><td class="bn"><span class="sw"></span>Берёзовая</td><td>Берёзовые</td><td>Берёзовые</td><td>Берёзовый</td></tr>
+            <tr style="--wc:#a0714f"><td class="bn"><span class="sw"></span>Тропическая</td><td>Тропические</td><td>Тропические</td><td>Тропический</td></tr>
+            <tr style="--wc:#c0653a"><td class="bn"><span class="sw"></span>Акациевая</td><td>Акациевые</td><td>Акациевые</td><td>Акациевый</td></tr>
+            <tr style="--wc:#4a3320"><td class="bn"><span class="sw"></span>Тёмно-дубовая</td><td>Тёмно-дубовые</td><td>Тёмно-дубовые</td><td>Тёмно-дубовый</td></tr>
+            <tr style="--wc:#8c3a5a"><td class="bn"><span class="sw"></span>Багровая<span class="tag nether">Незер</span></td><td>Багровые</td><td>Багровые</td><td>Багровый</td></tr>
+            <tr style="--wc:#2b8a86"><td class="bn"><span class="sw"></span>Искажённая<span class="tag nether">Незер</span></td><td>Искажённые</td><td>Искажённые</td><td>Искажённый</td></tr>
+            <tr style="--wc:#e8a9b4"><td class="bn"><span class="sw"></span>Вишнёвая</td><td>Вишнёвые</td><td>Вишнёвые</td><td>Вишнёвый</td></tr>
+            <tr style="--wc:#e3d9c8"><td class="bn"><span class="sw"></span>Бледно-дубовая</td><td>Бледно-дубовые</td><td>Бледно-дубовые</td><td>Бледно-дубовый</td></tr>
+            <tr style="--wc:#c8714a"><td class="bn"><span class="sw"></span>Медная<span class="tag spec">Особая</span></td><td class="alt">Резные медные</td><td class="alt">Резной медный блок</td><td class="alt">Любой деревянный</td></tr>
+          </tbody>
+        </table>
+      </div></div>
+      <div class="bt-note">Медная бочка — исключение: для неё нужны резные медные блоки, а в качестве заборов подойдёт любой деревянный.</div>
       <div class="pager"><button class="mc-btn stone" data-page="distill">← Дистиллирование</button><button class="mc-btn stone" data-page="home">На главную</button><button class="mc-btn" data-page="seal">Следующая: Запечатывание →</button></div>
     </div>
   </section>
@@ -738,7 +782,7 @@ td .mci.st{width:14px;height:14px;vertical-align:-2px;margin-left:2px}
 
       <div class="vid-grid">
         <figure>
-          <video controls preload="metadata"><source src="Видео/1792021453961-1abaeef2-45cd-48aa-ade7-53a1586b9cb1-compressed.mp4" type="video/mp4"></video>
+          <video controls preload="metadata"><source src="Видео/Запечатование.mp4" type="video/mp4"></video>
           <figcaption>Процесс запечатывания напитка</figcaption>
         </figure>
       </div>
@@ -748,7 +792,7 @@ td .mci.st{width:14px;height:14px;vertical-align:-2px;margin-left:2px}
 
       <div class="vid-grid">
         <figure>
-          <video controls preload="metadata"><source src="Видео/1792021541777-afb394b3-6b63-4f47-8bdc-54148e608ae0-compressed.mp4" type="video/mp4"></video>
+          <video controls preload="metadata"><source src="Видео/Брендирование.mp4" type="video/mp4"></video>
           <figcaption>Брендирование напитка своим текстом</figcaption>
         </figure>
       </div>
