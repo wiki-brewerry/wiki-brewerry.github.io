@@ -729,6 +729,55 @@ body.navlock main{-webkit-user-select:none;user-select:none}
   .mix{margin-top:6px}
   .bt td.bn .tex{width:28px;height:28px;margin-right:10px}
 }
+
+/* ===== v5: фильтры, сортировка, избранное, калькулятор ===== */
+.tools{margin:6px 0 20px;display:flex;flex-direction:column;gap:12px}
+.tool-row{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+.tool-row label,.calc label{display:flex;flex-direction:column;gap:5px;font-family:var(--font-pixel);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.tools select,.calc input[type=number]{font-family:var(--font-sans);font-size:14px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--text);background:#141417;border:2px solid var(--border2);border-radius:0;padding:8px 10px;min-width:150px;outline:none}
+.tools select:focus,.calc input[type=number]:focus{border-color:var(--green-dark)}
+.tool-row .mc-btn{padding:9px 16px}
+.mc-btn:disabled{opacity:.45;cursor:default}
+#favN{color:var(--amber)}
+.fav-empty{color:var(--muted);font-size:13.5px}
+.fav-empty[hidden],.calc[hidden]{display:none}
+
+.calc{background:var(--bg-card);border:3px solid var(--border);box-shadow:inset 0 0 0 2px #000,6px 6px 0 rgba(0,0,0,.35);padding:16px 18px}
+.calc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.calc-title{font-family:var(--font-pixel);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);text-shadow:1px 1px #451a03}
+.calc-head .mc-btn{padding:4px 12px}
+.calc-in{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end}
+.calc-in select{min-width:260px;max-width:100%}
+.calc-n{display:flex;gap:6px;align-items:stretch}
+.calc-n input{width:90px;min-width:0;text-align:center;font-weight:700}
+.calc-n .mc-btn{padding:0 14px;font-size:14px}
+.calc-out{margin:16px 0 8px;padding:12px 14px;background:#141417;border:2px solid var(--border);min-height:48px}
+.calc-out .ing{font-size:16px;margin:4px 18px 4px 0}
+.calc-out .ing img{width:24px;height:24px;vertical-align:-6px}
+.calc-total{margin-top:8px;color:var(--muted);font-size:12.5px}
+.calc-meta{color:#a9a9b2;font-size:13px}
+.calc-meta b{color:#d5d5db;font-weight:600}
+
+.fav,.cbtn{background:none;border:2px solid transparent;cursor:pointer;line-height:1;vertical-align:middle;color:#6f6f7a}
+.fav{font-size:18px;padding:2px 6px;margin-left:10px;font-family:var(--font-sans)}
+.fav::before{content:"☆"}
+.fav.on::before{content:"★"}
+.fav:hover{color:var(--amber)}
+.fav.on{color:var(--amber);text-shadow:1px 1px #451a03}
+.cbtn{font-family:var(--font-pixel);font-size:9px;letter-spacing:1px;padding:4px 6px;margin-left:4px;border-color:var(--border2)}
+.cbtn::before{content:"×N"}
+.cbtn:hover{color:#fff;border-color:var(--green-dark);background:#222a1c}
+th.sortable{cursor:pointer;user-select:none}
+th.sortable:hover{color:#fff}
+th[data-dir=asc]::after{content:" ▲";color:var(--green)}
+th[data-dir=desc]::after{content:" ▼";color:var(--green)}
+@media (max-width:760px){
+  .tool-row label{flex:1 1 140px}
+  .tools select{width:100%;min-width:0}
+  .calc-in select{min-width:0;width:100%}
+  .calc-in label{flex:1 1 100%}
+  .nm .fav{margin-left:auto}
+}
 </style>
 </head>
 <body>
@@ -1014,6 +1063,72 @@ body.navlock main{-webkit-user-select:none;user-select:none}
         <button class="mc-btn stone" onclick="clearSearch()">Сброс</button>
         <span class="count" id="count2"></span>
       </div>
+
+      <!-- v5: фильтры, сортировка, избранное, калькулятор -->
+      <div class="tools" id="tools">
+        <div class="tool-row">
+          <label>Крепость
+            <select id="fAbv">
+              <option value="">любая</option>
+              <option value="0-15">до 15%</option>
+              <option value="16-25">16–25%</option>
+              <option value="26-40">26–40%</option>
+              <option value="41-100">41% и выше</option>
+            </select>
+          </label>
+          <label>Время варки
+            <select id="fTime">
+              <option value="">любое</option>
+              <option value="0-5">до 5 мин</option>
+              <option value="6-10">6–10 мин</option>
+              <option value="11-15">11–15 мин</option>
+              <option value="16-999">16 мин и дольше</option>
+            </select>
+          </label>
+          <label>Бочка
+            <select id="fWood"><option value="">любая</option></select>
+          </label>
+          <label>Эффект
+            <select id="fFx"><option value="">любой</option><option value="__none">без эффектов</option></select>
+          </label>
+          <label>Сортировка
+            <select id="sKey">
+              <option value="default">как в вики</option>
+              <option value="name">по названию</option>
+              <option value="abvMax">по крепости</option>
+              <option value="time">по времени варки</option>
+              <option value="dist">по дистилляциям</option>
+              <option value="years">по выдержке</option>
+            </select>
+          </label>
+          <button class="mc-btn stone" id="sDir" type="button" title="Направление сортировки" disabled>↑</button>
+        </div>
+        <div class="tool-row">
+          <button class="mc-btn stone" id="favOnly" type="button" aria-pressed="false">★ Мои рецепты <span id="favN">0</span></button>
+          <button class="mc-btn stone" id="calcOpen" type="button" aria-pressed="false">Калькулятор варки</button>
+        </div>
+        <p class="fav-empty" id="favEmpty" hidden>Пока пусто. Нажмите ☆ рядом с названием напитка, и он появится здесь.</p>
+
+        <div class="calc" id="calc" hidden>
+          <div class="calc-head">
+            <span class="calc-title">Калькулятор варки</span>
+            <button class="mc-btn stone" id="calcClose" type="button" aria-label="Закрыть калькулятор">×</button>
+          </div>
+          <div class="calc-in">
+            <label>Напиток <select id="cDrink"></select></label>
+            <label>Количество варок
+              <span class="calc-n">
+                <button class="mc-btn stone" id="cMinus" type="button" aria-label="Меньше">−</button>
+                <input type="number" id="cN" min="1" max="999" value="1" inputmode="numeric">
+                <button class="mc-btn stone" id="cPlus" type="button" aria-label="Больше">+</button>
+              </span>
+            </label>
+          </div>
+          <div class="calc-out" id="cOut"></div>
+          <div class="calc-meta" id="cMeta"></div>
+        </div>
+      </div>
+
 
       <h2 id="fruits"><img src="media/ico/icon_apple_liqueur.png" alt="">Фруктовые и ягодные напитки</h2>
       <p class="cat-desc">Лёгкие и сладкие напитки из ягод, фруктов и мёда. Отличная точка старта для начинающих пивоваров: простые ингредиенты и короткое время варки.</p>
@@ -1742,6 +1857,230 @@ stagger(); reveal();
   side.addEventListener('touchend', function(e){
     if (sx !== null && sx - e.changedTouches[0].clientX > 60) set(false); sx = null;
   }, {passive:true});
+})();
+
+/* ===== v5: калькулятор варки, избранное, фильтры и сортировка ===== */
+(function(){
+  var pg = document.getElementById('page-recipes'); if (!pg) return;
+  var LS_KEY = 'brewerry.fav.v1', FAV = {}, ROW = {}, DRINKS = [];
+  var S = { favOnly:false, abv:'', time:'', wood:'', fx:'', sort:'default', dir:'asc' };
+  try { FAV = JSON.parse(localStorage.getItem(LS_KEY) || '{}') || {}; } catch (e) { FAV = {}; }
+  if (typeof FAV !== 'object' || Array.isArray(FAV)) FAV = {};
+  function saveFav(){ try { localStorage.setItem(LS_KEY, JSON.stringify(FAV)); } catch (e) {} }
+  function $(id){ return document.getElementById(id); }
+  function num(s){ var m = /\d+/.exec(s || ''); return m ? +m[0] : null; }
+  function clean(s){ return (s || '').replace(/\s+/g, ' ').trim(); }
+
+  function parseAge(t){
+    t = clean(t);
+    if (!t || t === '—') return { years:null, wood:null };
+    var years = null, m = /(\d+)\s*(?:лет|год)/.exec(t);
+    if (m) years = +m[1]; else if (/мин/.test(t)) years = 0;
+    var parts = t.split(','), w = (parts.length > 1 ? parts[1] : t).toLowerCase().trim(), wood = null;
+    if (/люб(?:ая|ой)/.test(w)) wood = 'any';
+    else if (parts.length > 1) { if (w === 'тёмный дуб') w = 'тёмнодубовая'; wood = w; }
+    return { years:years, wood:wood };
+  }
+  function fxNames(s){
+    return s.replace(/\([^)]*\)/g, '').split(',').map(function(x){
+      return clean(x).replace(/\s+(?:I{1,3}|IV|V)$/, '');
+    }).filter(Boolean);
+  }
+
+  /* --- индексируем строки, добавляем кнопки --- */
+  var woods = {}, fxs = {}, order = 0;
+  pg.querySelectorAll('tbody tr').forEach(function(r){
+    var nm = r.querySelector('td.nm'), tw = r.closest('.tw'); if (!nm || !tw) return;
+    var cat = '', el = tw;
+    while ((el = el.previousElementSibling)) { if (el.tagName === 'H2' && el.id) { cat = el.id; break; } }
+    var name = clean(nm.textContent);
+    function cell(l){ var c = r.querySelector('td[data-label="' + l + '"]'); return c ? clean(c.textContent) : ''; }
+    var tc = r.querySelector('td[data-label="Варка"],td[data-label="Смешивание"],td[data-label="Время"]');
+    var ab = r.querySelector('.abv'), abv = ab ? (ab.textContent.match(/\d+/g) || []).map(Number) : [];
+    var age = parseAge(cell('Выдержка')), fx = [];
+    r.querySelectorAll('.fx').forEach(function(s){
+      fxNames(s.textContent).forEach(function(n){ if (fx.indexOf(n) < 0) fx.push(n); fxs[n] = 1; });
+    });
+    if (age.wood && age.wood !== 'any') woods[age.wood] = 1;
+    var d = r._d = {
+      o: order++, k: cat + '|' + name, name: name, abv: abv,
+      abvMax: abv.length ? Math.max.apply(null, abv) : null,
+      time: tc ? num(tc.textContent) : null, dist: num(cell('Дист.')),
+      years: age.years, wood: age.wood, fx: fx, isDrink: !!r.querySelector('.ing'), cat: cat
+    };
+    var fb = document.createElement('button');
+    fb.type = 'button'; fb.className = 'fav'; nm.appendChild(fb); setFavUi(r);
+    if (d.isDrink) {
+      var cb = document.createElement('button');
+      cb.type = 'button'; cb.className = 'cbtn'; cb.setAttribute('aria-label', 'Рассчитать ингредиенты'); cb.title = 'Рассчитать ингредиенты';
+      nm.appendChild(cb); ROW[d.k] = r; DRINKS.push(r);
+    }
+  });
+
+  function setFavUi(r){
+    var b = r.querySelector('.fav'); if (!b) return;
+    var on = !!FAV[r._d.k];
+    b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    b.setAttribute('aria-label', on ? 'Убрать из избранного' : 'В избранное');
+    b.title = on ? 'Убрать из избранного' : 'В избранное';
+  }
+  function updFavN(){ $('favN').textContent = Object.keys(FAV).length; }
+
+  /* --- заполняем списки --- */
+  function fillSelect(sel, values){
+    values.forEach(function(v){
+      var o = document.createElement('option'); o.value = v; o.textContent = v.charAt(0).toUpperCase() + v.slice(1); sel.appendChild(o);
+    });
+  }
+  fillSelect($('fWood'), Object.keys(woods).sort(function(a,b){ return a.localeCompare(b, 'ru'); }));
+  fillSelect($('fFx'), Object.keys(fxs).sort(function(a,b){ return a.localeCompare(b, 'ru'); }));
+  var groups = {};
+  DRINKS.forEach(function(r){
+    var d = r._d, g = groups[d.cat];
+    if (!g) {
+      g = groups[d.cat] = document.createElement('optgroup');
+      var h = $(d.cat); g.label = h ? clean(h.textContent) : d.cat; $('cDrink').appendChild(g);
+    }
+    var o = document.createElement('option'); o.value = d.k; o.textContent = d.name; g.appendChild(o);
+  });
+  updFavN();
+
+  /* --- фильтры --- */
+  function pass(r){
+    var d = r._d; if (!d) return false;
+    if (S.favOnly && !FAV[d.k]) return false;
+    if (S.abv) { var b = S.abv.split('-'), lo = +b[0], hi = +b[1]; if (!d.abv.some(function(v){ return v >= lo && v <= hi; })) return false; }
+    if (S.time) { var t = S.time.split('-'); if (d.time == null || d.time < +t[0] || d.time > +t[1]) return false; }
+    if (S.wood) { if (!d.wood || (d.wood !== S.wood && d.wood !== 'any')) return false; }
+    if (S.fx) {
+      if (S.fx === '__none') { if (!d.isDrink || d.fx.length) return false; }
+      else if (d.fx.indexOf(S.fx) < 0) return false;
+    }
+    return true;
+  }
+  function extraActive(){ return S.favOnly || S.abv || S.time || S.wood || S.fx; }
+  function applyExtra(){
+    var noFav = S.favOnly && !Object.keys(FAV).length;
+    $('favEmpty').hidden = !noFav;
+    if (!extraActive() || !catGroups) return;
+    var shown = 0, total = 0;
+    catGroups.forEach(function(g){
+      var m = 0;
+      g.els.forEach(function(e){
+        e.querySelectorAll('tbody tr').forEach(function(r){
+          total++;
+          var ok = r.style.display !== 'none' && pass(r);
+          r.style.display = ok ? '' : 'none';
+          if (ok) { m++; shown++; }
+        });
+      });
+      g.els.forEach(function(e){ e.style.display = m ? '' : 'none'; });
+    });
+    document.querySelectorAll('.no-res').forEach(function(n){ n.style.display = (shown === 0 && !noFav) ? 'block' : 'none'; });
+    document.querySelectorAll('.count').forEach(function(c){ c.textContent = 'Найдено: ' + shown + ' / ' + total; });
+  }
+  var _fa = filterAll, _cs = clearSearch;
+  filterAll = function(src){ _fa(src); applyExtra(); };
+  function refilter(){ filterAll($('q2')); }
+
+  $('fAbv').addEventListener('change', function(){ S.abv = this.value; refilter(); });
+  $('fTime').addEventListener('change', function(){ S.time = this.value; refilter(); });
+  $('fWood').addEventListener('change', function(){ S.wood = this.value; refilter(); });
+  $('fFx').addEventListener('change', function(){ S.fx = this.value; refilter(); });
+  $('favOnly').addEventListener('click', function(){
+    S.favOnly = !S.favOnly; this.classList.toggle('active', S.favOnly); this.setAttribute('aria-pressed', S.favOnly ? 'true' : 'false'); refilter();
+  });
+
+  /* --- сортировка --- */
+  var THK = { 'Напиток':'name', 'Коктейль':'name', 'Энергетик':'name', 'Продукт':'name', 'Варка':'time', 'Смешивание':'time',
+              'Время':'time', 'Дист.':'dist', 'Выдержка':'years', 'Креп.':'abvMax', '#':'default' };
+  function sortRows(){
+    pg.querySelectorAll('tbody').forEach(function(tb){
+      var rows = [].slice.call(tb.rows).filter(function(r){ return r._d; });
+      rows.sort(function(a, b){
+        var x = a._d, y = b._d;
+        if (S.sort === 'default') return x.o - y.o;
+        var va = x[S.sort], vb = y[S.sort];
+        if (va == null && vb == null) return x.o - y.o;
+        if (va == null) return 1;
+        if (vb == null) return -1;
+        var c = typeof va === 'string' ? va.localeCompare(vb, 'ru') : va - vb;
+        if (c === 0) return x.o - y.o;
+        return S.dir === 'desc' ? -c : c;
+      });
+      rows.forEach(function(r){ tb.appendChild(r); });
+    });
+    $('sKey').value = S.sort; $('sDir').textContent = S.dir === 'asc' ? '↑' : '↓'; $('sDir').disabled = S.sort === 'default';
+    pg.querySelectorAll('th[data-k]').forEach(function(th){
+      if (th.dataset.k === S.sort && S.sort !== 'default') th.setAttribute('data-dir', S.dir); else th.removeAttribute('data-dir');
+    });
+  }
+  pg.querySelectorAll('thead th').forEach(function(th){
+    var k = THK[clean(th.textContent)]; if (!k) return;
+    th.dataset.k = k; th.classList.add('sortable'); th.title = k === 'default' ? 'Вернуть порядок вики' : 'Сортировать';
+    th.addEventListener('click', function(){
+      if (k === S.sort && k !== 'default') S.dir = S.dir === 'asc' ? 'desc' : 'asc'; else { S.sort = k; S.dir = 'asc'; }
+      sortRows();
+    });
+  });
+  $('sKey').addEventListener('change', function(){ S.sort = this.value; S.dir = 'asc'; sortRows(); });
+  $('sDir').addEventListener('click', function(){ S.dir = S.dir === 'asc' ? 'desc' : 'asc'; sortRows(); });
+
+  /* --- избранное и кнопка калькулятора в строках --- */
+  pg.addEventListener('click', function(e){
+    var f = e.target.closest('.fav'), c = e.target.closest('.cbtn');
+    if (f) {
+      var r = f.closest('tr'), k = r._d.k;
+      if (FAV[k]) delete FAV[k]; else FAV[k] = 1;
+      saveFav(); setFavUi(r); updFavN(); if (S.favOnly) refilter();
+    } else if (c) {
+      openCalc(c.closest('tr')._d.k);
+    }
+  });
+
+  /* --- калькулятор --- */
+  var calc = $('calc'), cN = $('cN');
+  function getN(){ var n = parseInt(cN.value, 10); return isNaN(n) ? 1 : Math.max(1, Math.min(999, n)); }
+  function renderCalc(){
+    var r = ROW[$('cDrink').value], n = getN(), out = $('cOut'), meta = $('cMeta');
+    out.innerHTML = ''; meta.innerHTML = ''; if (!r) return;
+    var total = 0;
+    r.querySelectorAll('.ing').forEach(function(sp){
+      var q = sp.querySelector('.q'), base = parseInt(q ? q.textContent : '1', 10) || 1, c = sp.cloneNode(true), cq = c.querySelector('.q');
+      if (cq) cq.textContent = (base * n) + 'x';
+      total += base * n; out.appendChild(c);
+    });
+    var t = document.createElement('div'); t.className = 'calc-total'; t.textContent = 'Всего предметов: ' + total; out.appendChild(t);
+    var parts = [];
+    ['Варка', 'Смешивание', 'Время', 'Дист.', 'Выдержка', 'Креп.'].forEach(function(l){
+      var c = r.querySelector('td[data-label="' + l + '"]');
+      if (c && clean(c.textContent) && clean(c.textContent) !== '—') parts.push('<b>' + l + ':</b> ' + clean(c.textContent).replace(/</g, '&lt;'));
+    });
+    meta.innerHTML = 'На одну варку: ' + parts.join(' · ');
+  }
+  function openCalc(k){
+    calc.hidden = false; $('calcOpen').classList.add('active'); $('calcOpen').setAttribute('aria-pressed', 'true');
+    if (k) $('cDrink').value = k;
+    renderCalc();
+    calc.scrollIntoView({ behavior:'smooth', block:'center' });
+  }
+  function closeCalc(){ calc.hidden = true; $('calcOpen').classList.remove('active'); $('calcOpen').setAttribute('aria-pressed', 'false'); }
+  $('calcOpen').addEventListener('click', function(){ if (calc.hidden) openCalc(); else closeCalc(); });
+  $('calcClose').addEventListener('click', closeCalc);
+  $('cDrink').addEventListener('change', renderCalc);
+  cN.addEventListener('input', renderCalc);
+  cN.addEventListener('change', function(){ cN.value = getN(); renderCalc(); });
+  $('cMinus').addEventListener('click', function(){ cN.value = Math.max(1, getN() - 1); renderCalc(); });
+  $('cPlus').addEventListener('click', function(){ cN.value = Math.min(999, getN() + 1); renderCalc(); });
+
+  /* --- «Сброс» сбрасывает и фильтры --- */
+  clearSearch = function(){
+    S.favOnly = false; S.abv = S.time = S.wood = S.fx = '';
+    ['fAbv', 'fTime', 'fWood', 'fFx'].forEach(function(id){ $(id).value = ''; });
+    $('favOnly').classList.remove('active'); $('favOnly').setAttribute('aria-pressed', 'false');
+    S.sort = 'default'; S.dir = 'asc'; sortRows();
+    _cs();
+  };
 })();
 </script>
 
