@@ -759,14 +759,14 @@ body.navlock main{-webkit-user-select:none;user-select:none}
 .calc-meta{color:#a9a9b2;font-size:13px}
 .calc-meta b{color:#d5d5db;font-weight:600}
 
-td.nm{position:relative;padding-right:64px}
+td.nm{position:relative;padding-right:66px}
 /* значки на строках — пиксельные спрайты 16×16, без рамок */
-.fav,.cbtn{position:absolute;top:6px;width:24px;height:24px;padding:0;border:0;cursor:pointer;
+.fav,.cbtn{position:absolute;top:8px;width:24px;height:24px;padding:0;border:0;cursor:pointer;
   background:transparent center/16px 16px no-repeat;image-rendering:pixelated;
-  opacity:.45;filter:drop-shadow(1px 1px #000);transition:opacity .12s,transform .12s}
-.fav{right:32px;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAjklEQVR4nLVTsQ3AIAwziGsYe1EkRvYckZ2xEp/SiSogaClSPaLYceIA/AmRVERS2SZ7fxTvj0cRu21vtfubC/dlxlGtA4Ccz1fyqIYowDJHQxRWTTRk5mgsAHwVqWRApbAqosmNwC5uAZFU+kURBfSucj6bNKYOqtWl0frDGeU9q3G6Y4Vekn7b/lhPuABVLVy35OLxoAAAAABJRU5ErkJggg==)}
+  opacity:.8;filter:drop-shadow(1px 1px #000);transition:opacity .12s,transform .12s}
+.fav{right:34px;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAjklEQVR4nLVTsQ3AIAwziGsYe1EkRvYckZ2xEp/SiSogaClSPaLYceIA/AmRVERS2SZ7fxTvj0cRu21vtfubC/dlxlGtA4Ccz1fyqIYowDJHQxRWTTRk5mgsAHwVqWRApbAqosmNwC5uAZFU+kURBfSucj6bNKYOqtWl0frDGeU9q3G6Y4Vekn7b/lhPuABVLVy35OLxoAAAAABJRU5ErkJggg==)}
 .fav.on{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAw0lEQVR4nGNgoCUQEZH6LyIi9Z9szf8vmf3//3kBXkOYyHYePgNERKT+v94nA+e/3ifDgMsVLKT4EZtaRrhtilkI0fvTiDJQ1OkJA9ObN88YRZ2eIDQRofnUkVsMok5PGN68ecbIiOw8ZH/j0+xdx8Xw5s0zRgYGpECEu4QEzSgGkAvgBqB7AeZPZFeZ2agxbG36hhIbWF2A7FRivAZPtienCfw/OU0Aa9IVEZGCy/+/ZAZXwwiTRFaMHEjohhCjjiQAAOUWbWDF7tFnAAAAAElFTkSuQmCC);opacity:1}
-.cbtn{right:6px;opacity:.85;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA6UlEQVR4nK1SrQ6CUBg9lzGfgGRijsAMJJMRgy9hJDKTjWxxRiLR4BM4LSZmdgR3A3Mk0n0CCgbk7gMdXJwnfTv3nO/vfsC/ccx25S9vDaxPCymsTZSjYHVgGGO17G8IkTOZwDDGZRQdcB1tAQDz6RK3x6VhoJxbBPC8FYTImU5FbhFUwR1wMWuW/Ma1R/D9DdI07Ww9y57gPJEjaNSsCtt25M4YNfdVp10AAOdJ1cEQMwCY5kTGWodOCZoQOQvDPSzLUjbRRWpAdRSqSdq/8HGJtu10JuA8QV0UAPS2II7PrM1RDD35XrwADjpo21xJkZQAAAAASUVORK5CYII=)}
+.cbtn{right:8px;opacity:.9;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA6UlEQVR4nK1SrQ6CUBg9lzGfgGRijsAMJJMRgy9hJDKTjWxxRiLR4BM4LSZmdgR3A3Mk0n0CCgbk7gMdXJwnfTv3nO/vfsC/ccx25S9vDaxPCymsTZSjYHVgGGO17G8IkTOZwDDGZRQdcB1tAQDz6RK3x6VhoJxbBPC8FYTImU5FbhFUwR1wMWuW/Ma1R/D9DdI07Ww9y57gPJEjaNSsCtt25M4YNfdVp10AAOdJ1cEQMwCY5kTGWodOCZoQOQvDPSzLUjbRRWpAdRSqSdq/8HGJtu10JuA8QV0UAPS2II7PrM1RDD35XrwADjpo21xJkZQAAAAASUVORK5CYII=)}
 .fav:hover,.cbtn:hover{opacity:1;transform:scale(1.15)}
 .fav:active,.cbtn:active{transform:scale(.95)}
 .fav:focus-visible,.cbtn:focus-visible{outline:2px solid var(--green);outline-offset:1px;opacity:1}
@@ -779,8 +779,8 @@ th[data-dir=desc]::after{content:" ▼";color:var(--green)}
   .tools select{width:100%;min-width:0}
   .calc-in select{min-width:0;width:100%}
   .calc-in label{flex:1 1 100%}
-  table:not(.bt) td.nm{padding-right:64px}
-  .fav,.cbtn{top:9px}
+  table:not(.bt) td.nm{padding-right:66px}
+  .fav,.cbtn{top:50%;margin-top:-12px}
 }
 
 /* «Смешивание» в коктейлях — в стиле сайта (раньше был голубой) */
@@ -1670,6 +1670,7 @@ stagger(); reveal();
   var SEL = 'a, button, .card, [data-page], .mc-btn, .sb-item, summary, label, .logo, .totop, nav.tabs button';
   document.addEventListener('pointerdown', function (e) {
     if (e.button > 0) return;
+    if (e.target.closest && e.target.closest('[data-page], .sb-item, .sb-nav a, nav.tabs, .logo')) return; /* переключение разделов — без звука */
     var el = e.target.closest ? e.target.closest(SEL) : null;
     if (el) play();
   }, true);
